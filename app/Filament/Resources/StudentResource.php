@@ -60,22 +60,23 @@ class StudentResource extends Resource
                     ->required()
                     ->maxLength(255),
 
-                    Forms\Components\Select::make('classe_id')
+                    Forms\Components\Select::make('classe')
                     ->label('Classe')
                     ->options(Classes::all()->pluck('niveau', 'id'))
                     ->searchable(),
                     ])
                     ->columns(3),
 
-                  /*  Forms\Components\Section::make('Images')
+                   Forms\Components\Section::make('Images')
                     ->schema([
                         SpatieMediaLibraryFileUpload::make('photo')
                             ->collection('product-images')
                             ->multiple()
                             ->maxFiles(5)
+                            ->required()
                             ->hiddenLabel(),
                     ])
-                    ->collapsible(),*/
+                    ->collapsible(),
 
             ]);
     }
@@ -85,9 +86,9 @@ class StudentResource extends Resource
         return $table
             ->columns([
 
-                /*Tables\Columns\SpatieMediaLibraryImageColumn::make('product-image')
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('photo')
                 ->label('Image')
-                ->collection('product-images'),*/
+                ->collection('product-images'),
 
                 Tables\Columns\TextColumn::make('nom')
                     //->searchable(),
