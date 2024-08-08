@@ -16,10 +16,12 @@ class Student extends Model
         'adress',
         'email',
         'classe',
+        'payment',
+        'photo',
     ];
 
     public function classes()
     {
-        return $this->belongsTo(Classe::class, 'classe' );
+        return $this->belongsTo(Classes::class, 'classe' );
     }
 }

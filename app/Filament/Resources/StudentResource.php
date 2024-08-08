@@ -16,17 +16,26 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Columns\IconColumn;
+use App\Models\Classes;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+
+use Filament\Tables\Columns\ToggleColumn;
 
 class StudentResource extends Resource
 {
     protected static ?string $model = Student::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static ?string $navigationGroup = 'Student managment';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+
+                Forms\Components\Section::make()
+                ->schema([
                 Forms\Components\TextInput::make('nom')
                     ->required()
                     ->maxLength(255),
@@ -39,16 +48,35 @@ class StudentResource extends Resource
                 Forms\Components\TextInput::make('date_de_naissance')
                     ->required()
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('adress')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                     ->suffix('.com')
+                     ->suffixIcon('heroicon-m-check-circle')
+                     ->suffixIconColor('success')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('classe')
-                    ->required()
-                    ->maxLength(255),
+
+                    Forms\Components\Select::make('classe_id')
+                    ->label('Classe')
+                    ->options(Classes::all()->pluck('niveau', 'id'))
+                    ->searchable(),
+                    ])
+                    ->columns(3),
+
+                  /*  Forms\Components\Section::make('Images')
+                    ->schema([
+                        SpatieMediaLibraryFileUpload::make('photo')
+                            ->collection('product-images')
+                            ->multiple()
+                            ->maxFiles(5)
+                            ->hiddenLabel(),
+                    ])
+                    ->collapsible(),*/
+
             ]);
     }
 
@@ -56,8 +84,14 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
+
+                /*Tables\Columns\SpatieMediaLibraryImageColumn::make('product-image')
+                ->label('Image')
+                ->collection('product-images'),*/
+
                 Tables\Columns\TextColumn::make('nom')
-                    ->searchable(),
+                    //->searchable(),
+                    ->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('prenom')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cin')
@@ -65,6 +99,7 @@ class StudentResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('date_de_naissance')
                     ->searchable(),
+
                 Tables\Columns\TextColumn::make('adress')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
@@ -79,6 +114,8 @@ class StudentResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                    ToggleColumn::make('payment'),
+
             ])
             ->filters([
                 Filter::make('created_at')

@@ -23,6 +23,11 @@ class TeacherClasseResource extends Resource
     protected static ?string $model = TeacherClasse::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Teacher Classe managment';
+    protected static ?string $navigationLabel = 'Teachers For Classes';
+    protected static ?string $modelLabel ='Teachers For Classes association';
+    protected static ?string $slug ='hello_to_teacher_class';
+    protected static ?int $navigationSort= 3;
 
     public static function form(Form $form): Form
     {

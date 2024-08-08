@@ -12,27 +12,51 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Wizard;
 
 class ClassesResource extends Resource
 {
     protected static ?string $model = Classes::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Teacher Classe managment';
+    protected static ?int $navigationSort= 1;
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('niveau')
-                ->required()
-                ->maxLength(255),
-            Forms\Components\TextInput::make('section')
-                ->required()
-                ->maxLength(255),
 
-                Forms\Components\TextInput::make('capacité')
+
+            ->schema([
+
+
+                Wizard::make([
+                    Wizard\Step::make('niveau')
+                        ->schema([
+                            Forms\Components\TextInput::make('niveau')
+                            ->required()
+                            ->maxLength(255),// ...
+                        ]),
+                    Wizard\Step::make('section')
+                        ->schema([
+                            Forms\Components\TextInput::make('section')
                 ->required()
-                ->maxLength(255),
+                ->maxLength(255),// ...
+                        ]),
+                    Wizard\Step::make('capacité')
+                        ->schema([
+                            Forms\Components\TextInput::make('capacité')
+                            ->required()
+                            ->numeric()
+                            ->minValue(1)
+                            ->maxValue(30)
+                            ->maxLength(255),// ...
+                        ]),
+                ])
+
+
+
+
             ]);
     }
 
