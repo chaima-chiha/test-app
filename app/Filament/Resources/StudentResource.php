@@ -59,6 +59,16 @@ class StudentResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
+                    Forms\Components\ToggleButtons::make('payment')
+                        ->options([
+                            'payé' => 'payé',
+                            'nonpayé' => 'nonpayé',
+                        ])
+                        ->icons([
+
+                            'payé' => 'heroicon-o-check-circle',
+                            'nonpayé' => 'heroicon-o-clock',
+                        ]),
 
                     Forms\Components\Select::make('classe')
                     ->label('Classe')
@@ -88,6 +98,7 @@ class StudentResource extends Resource
 
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('photo')
                 ->label('Image')
+                ->circular()
                 ->collection('product-images'),
 
                 Tables\Columns\TextColumn::make('nom')
@@ -115,7 +126,9 @@ class StudentResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                    ToggleColumn::make('payment'),
+                   // ToggleColumn::make('payment'),
+                   Tables\Columns\TextColumn::make('payment')
+                   ->badge(),
 
             ])
             ->filters([
