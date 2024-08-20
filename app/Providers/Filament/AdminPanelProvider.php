@@ -18,7 +18,9 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Enums\ThemeMode;
-
+use App\Filament\Resources\StudentResource\Widgets\StudentStatsOverview;
+use App\Filament\Resources\UserResource\Widgets\staticsChart;
+use App\Filament\Resources\StudentResource\Widgets\StudentsChart;
 
 
 
@@ -42,6 +44,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
+
+                StudentStatsOverview::class,
+                staticsChart::class,
+                StudentsChart::class,
                // Widgets\AccountWidget::class,
                 //Widgets\FilamentInfoWidget::class,
 
