@@ -95,9 +95,7 @@ class NoteResource extends Resource
                 Tables\Columns\TextColumn::make('coef_note_examen')
                     ->numeric()
                     ->sortable(),
-                    Tables\Columns\TextColumn::make('moyenne_matiere')
-                    ->numeric()
-                    ->sortable(),
+                    Tables\Columns\TextColumn::make('moyenne'),
 
                 Tables\Columns\TextColumn::make('periode')
                     ->searchable(),

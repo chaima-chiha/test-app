@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
+
+
 class Note extends Model
 {
     use HasFactory;
@@ -17,6 +20,7 @@ class Note extends Model
         'coef_note_TP',
         'coef_note_TD',
         'coef_note_examen',
+        'moyenne',
         'periode',
     ];
     public function students()
@@ -27,6 +31,8 @@ class Note extends Model
     {
         return $this->belongsTo(matiere::class, 'id_matiere');
     }
+
+
 
 
 }
