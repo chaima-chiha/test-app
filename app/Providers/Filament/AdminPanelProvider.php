@@ -21,6 +21,7 @@ use Filament\Enums\ThemeMode;
 use App\Filament\Resources\StudentResource\Widgets\StudentStatsOverview;
 use App\Filament\Resources\UserResource\Widgets\staticsChart;
 use App\Filament\Resources\StudentResource\Widgets\StudentsChart;
+use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 
 
 
@@ -29,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->sidebarCollapsibleOnDesktop()
+        ->sidebarCollapsibleOnDesktop()
             ->default()
             ->id('admin')
             ->path('admin')
@@ -67,11 +68,15 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+
+            ->viteTheme('')
             ->font('Montserrat')
             ->defaultThemeMode(ThemeMode::Light)
             //->brandName('School_App')
             ->brandLogo(asset('images/logo.jpg'))
             ->brandLogoHeight('6rem')
-            ->favicon(asset('images/favicon.ico'));
+            ->favicon(asset('images/favicon.ico'))
+            ->plugins([FilamentFullCalendarPlugin::make()]);
+
     }
 }
