@@ -18,6 +18,7 @@ class MatiereResource extends Resource
     protected static ?string $model = Matiere::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Student managment';
 
     public static function form(Form $form): Form
     {

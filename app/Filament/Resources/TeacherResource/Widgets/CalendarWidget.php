@@ -1,18 +1,12 @@
 <?php
 
 namespace App\Filament\Resources\TeacherResource\Widgets;
-
-use App\Models\Emploie;
-use Filament\Widgets\Widget;
 use App\Filament\Resources\EmploieResource;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Emploie;
 use Saade\FilamentFullCalendar\Widgets\FullCalendarWidget;
+
 class CalendarWidget extends FullCalendarWidget
 {
-
-    public Model | string | null $model = Emploie::class;
-
-
     public function fetchEvents(array $fetchInfo): array
     {
         return Emploie::query()
@@ -22,18 +16,18 @@ class CalendarWidget extends FullCalendarWidget
             ->map(
                 fn (Emploie $emploie) => [
                     'id' => $emploie->id,
-                    'teacher_id' => $emploie->teacher_id,
                     'title' => $emploie->title,
                     'start' => $emploie->start_at,
                     'end' => $emploie->end_at,
-                    // 'url' => EmploieResource::getUrl(name: 'edit', parameters: ['record' => $event]),
-                    // 'shouldOpenUrlInNewTab' => true
+                    'url' => EmploieResource::getUrl(name: 'edit', parameters: ['record' => $emploie]),
+                    'shouldOpenUrlInNewTab' => false,
+                    'color' => $emploie->color,
                 ]
             )
             ->all();
     }
-    // public static function canView(): bool
-    // {
-    //     return true;
-    // }
+    public static function canView(): bool
+    {
+        return false;
+    }
 }

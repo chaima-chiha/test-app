@@ -28,4 +28,8 @@ class EmploieWidget extends FullCalendarWidget
             )
             ->all();
     }
+    public static function canView(): bool
+    {
+        return false;
+    }
 }
